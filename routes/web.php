@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Web\Dashboard\LocalizationController;
 use Illuminate\Support\Facades\Route;
@@ -17,11 +16,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');})->name('dashboard');
+
+    Route::post('lang', [LocalizationController::class, 'setLang']);
+    Route::resource('categories', CategoryController::class);
+    Route::resource('products', ProductController::class);
 });
-Route::post('lang', [LocalizationController::class, 'setLang']);
 
-Route::resource('categories', CategoryController::class);
-Route::resource('products', ProductController::class);
-
+require __DIR__.'/auth.php';
