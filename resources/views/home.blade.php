@@ -1,7 +1,7 @@
 @extends('layouts.Dashboard.master')
 
 @section('Headtitle')
-E-commerce
+    E-commerce
 @endsection
 
 

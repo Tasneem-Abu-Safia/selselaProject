@@ -10,7 +10,6 @@
 
 @section('Headtitle')
     {{__('dashboard.Categories')}}
-
 @endsection
 
 @section('js')
@@ -25,7 +24,8 @@
                 ajax: "{{ route('categories.index') }}",
                 columns: [
                     {data: 'id', name: 'id'},
-                    {data: 'name', name: 'name'},
+                    {data: 'name.en', name: 'name'},
+                    {data: 'name.ar', name: 'name'},
                     {data: 'icon', name: 'icon'},
                     {
                         data: 'action', name: 'action',
@@ -51,7 +51,7 @@
     <div class="container-fluid">
         <div class="col-6 pb-2">
             <a href="{{url('categories/create')}}">
-                <button type="button" class="btn btn-info"></button>
+                <button type="button" class="btn btn-info">Add Category</button>
             </a>
         </div>
         <div class="row">
@@ -63,7 +63,8 @@
                                 <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Name</th>
+                                    <th>Name_En</th>
+                                    <th>Name_Ar</th>
                                     <th>Icon</th>
                                     <th>Actions</th>
                                 </tr>

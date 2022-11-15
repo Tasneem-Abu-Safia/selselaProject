@@ -13,7 +13,7 @@
                                  class="rounded-circle img-fluid"/>
                         </div>
                         <div class="user-content hide-menu m-t-10">
-{{--                            <h5 class="m-b-10 user-name font-medium">{{Auth::user()->name}}</h5>--}}
+                            {{--                            <h5 class="m-b-10 user-name font-medium">{{Auth::user()->name}}</h5>--}}
                             <a href="javascript:void(0)" class="btn btn-circle btn-sm m-r-5" id="Userdd"
                                role="button" data-toggle="dropdown" aria-haspopup="true"
                                aria-expanded="false">
@@ -21,14 +21,14 @@
                             </a>
 
                             <a class="btn btn-circle btn-sm"
-{{--                               href="{{ route('logout') }}"--}}
+                               {{--                               href="{{ route('logout') }}"--}}
                                onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                 <i class="ti-power-off"></i>
                             </a>
 
                             <form id="logout-form"
-{{--                                  action="{{ route('logout') }}"--}}
+                                  {{--                                  action="{{ route('logout') }}"--}}
                                   method="POST" class="d-none">
                                 @csrf
                             </form>
@@ -45,7 +45,7 @@
                                 <div class="dropdown-divider"></div>
 
                                 <a class="dropdown-item"
-{{--                                   href="{{ route('logout') }}"--}}
+                                   {{--                                   href="{{ route('logout') }}"--}}
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                     <i class="fa fa-power-off m-r-5 m-l-5"></i>
@@ -53,7 +53,7 @@
                                 </a>
 
                                 <form id="logout-form"
-{{--                                      action="{{ route('logout') }}" --}}
+                                      {{--                                      action="{{ route('logout') }}" --}}
                                       method="POST" class="d-none">
                                     @csrf
                                 </form>
@@ -87,9 +87,79 @@
                     </ul>
                 </li>
                 <li class="sidebar-item">
+                    <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
+                       aria-expanded="false">
+                        <i class="icon-Car-Wheel"></i>
+                        <span class="hide-menu">Products</span>
+                    </a>
+                    <ul aria-expanded="false" class="collapse  first-level">
+                        <li class="sidebar-item">
+                            <a href="{{url('products')}}" class="sidebar-link">
+                                <i class="icon-Record"></i>
+                                <span class="hide-menu"> All Product </span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a href="{{route('products.create')}}" class="sidebar-link">
+                                <i class="icon-Record"></i>
+                                <span class="hide-menu"> Add PRoduct </span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
+                       aria-expanded="false">
+                        <i class="icon-Car-Wheel"></i>
+                        <span class="hide-menu">Manage Roles</span>
+                    </a>
+                    <ul aria-expanded="false" class="collapse  first-level">
+                        <li class="sidebar-item">
+                            <a href="{{route('roles.index')}}" class="sidebar-link">
+                                <i class="icon-Record"></i>
+                                <span class="hide-menu"> All Roles </span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a href="{{route('roles.create')}}" class="sidebar-link">
+                                <i class="icon-Record"></i>
+                                <span class="hide-menu"> Add Role </span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
+                       aria-expanded="false">
+                        <i class="icon-Car-Wheel"></i>
+                        <span class="hide-menu">Manage Users</span>
+                    </a>
+                    <ul aria-expanded="false" class="collapse  first-level">
+                        <li class="sidebar-item">
+                            <a href="{{route('users.index')}}" class="sidebar-link">
+                                <i class="icon-Record"></i>
+                                <span class="hide-menu"> All User </span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a href="{{route('users.create')}}" class="sidebar-link">
+                                <i class="icon-Record"></i>
+                                <span class="hide-menu"> Add User </span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+
+                <li class="sidebar-item">
 
                     <a class="sidebar-link waves-effect waves-dark sidebar-link" aria-expanded="false"
-{{--                       href="{{ route('logout') }}"--}}
+                       href="{{ route('logout') }}"
                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                         <i class="mdi mdi-directions"></i>
@@ -97,11 +167,9 @@
 
                     </a>
 
-{{--                    <form id="logout-form"--}}
-{{--                          action="{{ route('logout') }}"--}}
-{{--                          method="POST" class="d-none">--}}
-{{--                        @csrf--}}
-{{--                    </form>--}}
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
                 </li>
             </ul>
         </nav>
