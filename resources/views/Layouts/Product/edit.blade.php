@@ -103,10 +103,10 @@
                             <div class="controls">
                                 <select class="custom-select mr-sm-2"  name="category_id" id="category_id">
                                     <option selected
-                                        value="{{ $product->category->id}}"> {{ $product->category->getTranslation('name', Session::get("locale")) }}</option>
+                                        value="{{ $product->category->id}}"> {{ $product->category->name }}</option>
 
                                 @foreach($category as  $c)
-                                        <option value="{{$c->id}}"> {{ $c->getTranslation('name', Session::get("locale")) }}</option>
+                                        <option value="{{$c->id}}"> {{ $c->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -123,10 +123,11 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="file">Uploaded Image</label>
-                            <img id="output" width="200" src="{{URL::asset($product->image)}}"/>
+                            <label for="file">Uploaded Image</label><br>
+                            @foreach($images as $image)
+                                <img id="output" width="200" src="{{URL::asset('storage/'.$image['url'])}}"/>
+                            @endforeach
                         </div>
-
 
                         <div class="text-xs-right">
                             <button type="submit" class="btn btn-info">Update</button>

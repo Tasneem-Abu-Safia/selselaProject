@@ -106,7 +106,7 @@
                             <div class="controls">
                                 <select class="custom-select mr-sm-2"  name="category_id" id="category_id">
                                     @foreach($category as  $c)
-                                        <option value="{{$c->id}}"> {{ $c->getTranslation('name', Session::get("locale")) }}</option>
+                                        <option value="{{$c->id}}"> {{ $c->name }}</option>
                                     @endforeach
                                 </select>
 
@@ -119,7 +119,7 @@
                             <div class="controls">
                                 <input type="file" name="file" accept="image/*"
                                        id="file" onchange="loadFile(event)" required
-                                       class="form-control">
+                                       class="form-control" multiple>
                             </div>
 
                         </div>

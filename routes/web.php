@@ -32,6 +32,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('categories', CategoryController::class);
     Route::resource('products', ProductController::class);
 
+    Route::post('product-main-image', [ProductController::class,'mainImage'])->name('productMainImage');
     Route::get('product-active/{product_id}', [ProductController::class,'deActive'])->name('productDeActive');
     Route::get('product-deActive/{product_id}', [ProductController::class,'active'])->name('productActive');
 

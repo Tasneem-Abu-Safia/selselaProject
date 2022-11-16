@@ -16,7 +16,10 @@
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
     <script type="text/javascript">
-
+        var loadFile = function (event) {
+            var image = document.getElementById('output');
+            image.src = URL.createObjectURL(event.target.files[0]);
+        };
         $(function () {
             var table = $('.categories_datatable').DataTable({
                 processing: true,
@@ -32,7 +35,6 @@
                     {data: 'price', name: 'price'},
                     {data: 'quantity', name: 'quantity'},
                     {data: 'category_name', name: 'category_name'},
-                    {data: 'active', name: 'active'},
                     {
                         data: 'action', name: 'action',
                         orderable: false,
@@ -40,9 +42,19 @@
                     },
                 ],
 
+            }).on('click', '.main', function (e) {
+                e.preventDefault();
+                var id = $(this).data('id');
+                $modal.modal('show');
+                $("#product_id").val(id);
+
             });
 
+            let $modal = $('#myModalSelectMain');
+
+
         });
+
 
     </script>
 @endsection
@@ -73,11 +85,10 @@
                                     <th>Name_Ar</th>
                                     <th>Description_En</th>
                                     <th>Description_Ar</th>
-{{--                                    <th>Image</th>--}}
+                                    {{--                                    <th>Image</th>--}}
                                     <th>Price</th>
                                     <th>Quantity</th>
                                     <th>Category</th>
-                                    <th>Active</th>
                                     <th>Actions</th>
                                 </tr>
                                 </thead>
@@ -90,6 +101,43 @@
             </div>
         </div>
     </div>
+    </div>
+    <div class="modal fade" id="myModalSelectMain" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel"> Main Product Image</h4>
+                </div>
+
+                <form action="{{route('productMainImage')}}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <input type='hidden' name='product_id' id="product_id"/>
+                    <div class="modal-body">
+
+                    <div class="form-group">
+                        <h5>Image Field <span class="text-danger">*</span></h5>
+                        <div class="controls">
+                            <input type="file" name="file" accept="image/*"
+                                   id="file" onchange="loadFile(event)"
+                                   class="form-control" >
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="file">Uploaded Image</label>
+                        <img id="output" width="200"/>
+                    </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <input type="submit" class="btn btn-primary" value='Add'/>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 @endsection
 

@@ -99,18 +99,18 @@
                         <div class="controls">
                             <select class="custom-select mr-sm-2" name="category_id" id="category_id" disabled>
                                 <option
-                                    value="{{ $product->category->id}}"> {{ $product->category->getTranslation('name', Session::get("locale")) }}</option>
+                                    value="{{ $product->category->id}}"> {{ $product->category->name }}</option>
                             </select>
 
                         </div>
                     </div>
 
 
-
-
                     <div class="form-group">
                         <label for="file">Uploaded Image</label><br>
-                        <img id="output" width="200" src="{{URL::asset($product->image)}}"/>
+                        @foreach($images as $image)
+                            <img id="output" width="200" src="{{URL::asset('storage/'.$image['url'])}}"/>
+                        @endforeach
                     </div>
 
 
