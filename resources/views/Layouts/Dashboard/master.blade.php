@@ -24,11 +24,11 @@
             forceTLS: true
         });
 
-        var channel = pusher.subscribe('status-user');
-        channel.bind('user-register', function (data) {
+        var channel = pusher.subscribe('createProduct');
+        channel.bind('create-product', function (data) {
             alert(JSON.stringify(data['message']));
         });
-        
+
     </script>
 </head>
 

@@ -94,12 +94,12 @@
                                 <input type="number" name="quantity" class="form-control" required
                                        data-validation-required-message="This field is required"></div>
                         </div>
-                        <div class="form-group">
-                            <h5>Active<span class="text-danger">*</span></h5>
-                            <div class="controls">
-                                <input type="number"  min="0" max="1" name="active" class="form-control" required
-                                       data-validation-required-message="This field is required"></div>
-                        </div>
+{{--                        <div class="form-group">--}}
+{{--                            <h5>Active<span class="text-danger">*</span></h5>--}}
+{{--                            <div class="controls">--}}
+{{--                                <input type="number"  min="0" max="1" name="active" class="form-control" required--}}
+{{--                                       data-validation-required-message="This field is required"></div>--}}
+{{--                        </div>--}}
 
                         <div class="form-group">
                             <h5>Category <span class="text-danger">*</span></h5>

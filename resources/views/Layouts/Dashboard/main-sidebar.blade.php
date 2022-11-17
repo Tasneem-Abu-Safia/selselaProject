@@ -103,7 +103,7 @@
                         <li class="sidebar-item">
                             <a href="{{route('products.create')}}" class="sidebar-link">
                                 <i class="icon-Record"></i>
-                                <span class="hide-menu"> Add PRoduct </span>
+                                <span class="hide-menu"> Add Product </span>
                             </a>
                         </li>
 

@@ -13,7 +13,7 @@ class Product extends Model
     use SoftDeletes;
     use HasTranslations;
 
-    public $translatable = ['name','description'];
+    public $translatable = ['name', 'description'];
     protected $table = 'products';
     protected $fillable = [
         'name',
@@ -32,6 +32,6 @@ class Product extends Model
 
     public function images()
     {
-        return $this->hasMany(product_images::class);
+        return $this->hasMany(Images::class);
     }
 }

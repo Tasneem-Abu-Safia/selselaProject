@@ -20,9 +20,9 @@ class UsersTableSeeder extends Seeder
     {
         for ($i = 0; $i < 15; $i++) {
             $user = User::create([
-                'name' => 'Tasneem',
-                'email' => 'Tasneem@gmail.com',
-                'password' => Hash::make('123456789'),
+                'name' => Str::random(5),
+                'email' => Str::random(8) . '@gmail.com',
+                'password' => Hash::make(Str::random(8)),
             ]);
         }
         $user->assignRole('user');

@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Events\CreateProductEvent;
 use App\Events\UserRegister;
+use App\Listeners\CreateProductlistener;
 use App\Listeners\UserRegisterlistener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -23,6 +25,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         UserRegister::class =>[
             UserRegisterlistener::class,
+        ],
+        CreateProductEvent::class =>[
+            CreateProductlistener::class,
         ],
     ];
 

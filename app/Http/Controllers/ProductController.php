@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\CreateProductEvent;
 use App\Models\Category;
-use App\Models\Image;
 use App\Models\Product;
-use App\Models\product_images;
+use App\Jobs\ProductActivation;
+use App\Models\images;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
@@ -81,13 +83,11 @@ class ProductController extends Controller
                 'price' => 'required|numeric',
                 'quantity' => 'required|numeric',
                 'category_id' => 'required|numeric|exists:categories,id',
-                'active' => 'required|boolean',
-
+//                'active' => 'required|boolean',
             ]);
         if ($validator->fails()) {
             return back()->withErrors($validator->errors());
         }
-
         $product = Product::create(array_merge(
             $validator->validated(),
             [
@@ -99,36 +99,41 @@ class ProductController extends Controller
                     'en' => $request->description_en,
                     'ar' => $request->description_ar
                 ],
+                'active' => 0,
             ]
         ));
 
-        foreach ($request->file('file') as $imagefile) {
-            $image = new product_images;
-            $fileName = time() . '.' . $request->file->getClientOriginalName();
-            $path = $imagefile->storeAs('product_image', $fileName, 'public');
-            $image->url = $path;
-            $image->product_id = $product->id;
-            $image->is_main = 0;
-            $image->save();
-        }
+        event(new CreateProductEvent('New Product Created'));
 
+        if ($request->hasFile('file')) {
+            foreach ($request->file('file') as $imagefile) {
+
+                $fileName = time() . '.' . $imagefile->getClientOriginalName();
+                $path = $imagefile->storeAs('product_image', $fileName, 'public');
+                Images::create([
+                    'url' =>$path,
+                    'product_id' => $product->id,
+                    'is_main' => 0,
+                ]);
+            }
+        }
         return redirect()->route('products.index');
     }
 
     public function show(Product $product)
     {
-       $images=  product_images::where('product_id', $product->id)->get('url');
+        $images = images::where('product_id', $product->id)->get('url');
 
-        return view('Layouts.Product.show', compact('product','images'));
+        return view('Layouts.Product.show', compact('product', 'images'));
 
     }
 
     public function edit(Product $product)
     {
         $category = Category::all();
-        $images=  product_images::where('product_id', $product->id)->get('url');
+        $images = images::where('product_id', $product->id)->get('url');
 
-        return view('Layouts.Product.edit', compact('product', 'category','images'));
+        return view('Layouts.Product.edit', compact('product', 'category', 'images'));
 
     }
 
@@ -206,10 +211,10 @@ class ProductController extends Controller
 
     public function mainImage(Request $request)
     {
-        product_images::where('product_id', $request->product_id)->update(['is_main' => 0]);
+        Images::where('product_id', $request->product_id)->update(['is_main' => 0]);
 
         if ($request->hasFile('file')) {
-            $image = new product_images;
+            $image = new Images;
             $fileName = time() . '.' . $request->file->getClientOriginalName();
             $path = $request->file('file')->storeAs('product_image', $fileName, 'public');
             $image->url = $path;
