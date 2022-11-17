@@ -13,7 +13,23 @@
     <meta name="description" content="">
     <meta name="author" content="">
     @include('Layouts.Dashboard.css-links')
+    <script src="//js.pusher.com/3.1/pusher.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 
+    <script type="text/javascript">
+
+        Pusher.logToConsole = true;
+        var pusher = new Pusher('a0833e3606f706f27f6c', {
+            cluster: 'ap2',
+            forceTLS: true
+        });
+
+        var channel = pusher.subscribe('status-user');
+        channel.bind('user-register', function (data) {
+            alert(JSON.stringify(data['message']));
+        });
+        
+    </script>
 </head>
 
 <body>
