@@ -113,6 +113,30 @@
                     <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
                        aria-expanded="false">
                         <i class="icon-Car-Wheel"></i>
+                        <span class="hide-menu">Orders</span>
+                    </a>
+                    <ul aria-expanded="false" class="collapse  first-level">
+                        <li class="sidebar-item">
+                            <a href="{{url('orders')}}" class="sidebar-link">
+                                <i class="icon-Record"></i>
+                                <span class="hide-menu"> All Orders </span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a href="{{route('orders.create')}}" class="sidebar-link">
+                                <i class="icon-Record"></i>
+                                <span class="hide-menu"> Add Order </span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
+                       aria-expanded="false">
+                        <i class="icon-Car-Wheel"></i>
                         <span class="hide-menu">Manage Roles</span>
                     </a>
                     <ul aria-expanded="false" class="collapse  first-level">

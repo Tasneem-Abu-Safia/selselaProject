@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OrderProductController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Web\Dashboard\LocalizationController;
 use App\Http\Controllers\Web\UserManagement\RoleController;
@@ -31,6 +32,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::post('lang', [LocalizationController::class, 'setLang']);
     Route::resource('categories', CategoryController::class);
     Route::resource('products', ProductController::class);
+    Route::resource('orders', OrderProductController::class);
 
     Route::post('product-main-image', [ProductController::class,'mainImage'])->name('productMainImage');
     Route::get('product-active/{product_id}', [ProductController::class,'deActive'])->name('productDeActive');

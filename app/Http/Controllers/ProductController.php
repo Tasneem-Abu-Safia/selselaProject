@@ -108,13 +108,14 @@ class ProductController extends Controller
         if ($request->hasFile('file')) {
             foreach ($request->file('file') as $imagefile) {
 
+                $image = new Images;
                 $fileName = time() . '.' . $imagefile->getClientOriginalName();
                 $path = $imagefile->storeAs('product_image', $fileName, 'public');
-                Images::create([
-                    'url' =>$path,
-                    'product_id' => $product->id,
-                    'is_main' => 0,
-                ]);
+                $image->url = $path;
+                $image->product_id = $request->product_id;
+                $image->is_main = 0;
+                $image->save();
+
             }
         }
         return redirect()->route('products.index');
