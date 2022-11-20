@@ -107,12 +107,13 @@ class ProductController extends Controller
 
         if ($request->hasFile('file')) {
             foreach ($request->file('file') as $imagefile) {
+//                dd($imagefile);
 
                 $image = new Images;
                 $fileName = time() . '.' . $imagefile->getClientOriginalName();
                 $path = $imagefile->storeAs('product_image', $fileName, 'public');
                 $image->url = $path;
-                $image->product_id = $request->product_id;
+                $image->product_id = $product->id;
                 $image->is_main = 0;
                 $image->save();
 

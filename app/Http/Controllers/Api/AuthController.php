@@ -18,34 +18,34 @@ class AuthController extends Controller
 
     public function registerUser(Request $request)
     {
-//        $validator = Validator::make($request->all(), [
-//            'name' => 'required|String',
-//            'email' => 'required|email|unique:users,email',
-//            'password' => 'required|min:6',
-//        ]);
-//
-//        if ($validator->fails()) {
-//            return response()->json([
-//                'status' => false,
-//                'response_message' => 'validation error',
-//                'data' => $validator->errors(),
-//            ]);
-//        }
-//        $user = User::create([
-//            'name' => $request->name,
-//            'email' => $request->email,
-//            'password' => Hash::make($request->password),
-//        ]);
-//        $token = $user->createToken("API TOKEN")->plainTextToken;
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|String',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:6',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'response_message' => 'validation error',
+                'data' => $validator->errors(),
+            ]);
+        }
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+        $token = $user->createToken("API TOKEN")->plainTextToken;
         event(new UserRegister('New user has been registered'));
-        return '';
-//        return response()->json([
-//            'token' => $token,
-//            'status' => true,
-//            'response_message' => 'User Created Successfully',
-//            'data' => $user,
-//
-//        ]);
+
+        return response()->json([
+            'token' => $token,
+            'status' => true,
+            'response_message' => 'User Created Successfully',
+            'data' => $user,
+
+        ]);
 
     }
 
