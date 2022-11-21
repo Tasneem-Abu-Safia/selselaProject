@@ -28,6 +28,9 @@ class CategoryController extends Controller
                     $url = asset($category->icon);
                     return '<img src="' . $url . '" border="0" width="100" align="center" class="rounded" />';
                 })
+                ->addColumn('parent_name', function ($cat) {
+                    return $cat->parent;
+                })
                 ->addColumn('action', function ($category) {
                     $btn = '<a href="' . route('categories.show', $category->id) . '" href="javascript:void(0)" class="btn btn-success btn-sm"><i class="fas fa-eye"></i></a>';
                     $btn .= '<a href="' . route('categories.edit', $category->id) . '" href="javascript:void(0)" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>';
@@ -42,7 +45,7 @@ class CategoryController extends Controller
                 ';
                     return $btn;
                 })
-                ->rawColumns(['icon','action'])
+                ->rawColumns(['parent_name','icon', 'action'])
                 ->make(true);
         }
         return view('Layouts.Category.index');
@@ -52,7 +55,8 @@ class CategoryController extends Controller
 
     public function create()
     {
-        return view('Layouts.Category.create');
+        $categories = Category::whereNull('parent_id')->get();
+        return view('Layouts.Category.create', compact('categories'));
     }
 
     public function store(Request $request)
@@ -61,6 +65,7 @@ class CategoryController extends Controller
             [
                 'name_ar' => 'required|string',
                 'name_en' => 'required|string',
+                'parent_id' => 'numeric|exists:categories,id',
                 'file' => 'required|mimes:png,jpg,jpeg,gif',
             ]);
         if ($validator->fails()) {
@@ -79,6 +84,7 @@ class CategoryController extends Controller
             ->setTranslation('name', 'en', $request->name_en)
             ->setTranslation('name', 'ar', $request->name_ar);
         $category->icon = 'storage/' . $path;
+        $category->parent_id = $request->parent_id;
         $category->save();
 
         return redirect()->route('categories.index');
@@ -114,8 +120,7 @@ class CategoryController extends Controller
                 $fileName = time() . '.' . $request->file->getClientOriginalName();
                 $path = $request->file->storeAs('category_image', $fileName, 'public');
 
-            }
-            else{
+            } else {
                 $category['icon'] = $category->icon;
             }
             $category

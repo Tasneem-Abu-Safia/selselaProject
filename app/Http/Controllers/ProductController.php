@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Events\CreateProductEvent;
 use App\Models\Category;
+use App\Models\Colors;
 use App\Models\Product;
 use App\Jobs\ProductActivation;
 use App\Models\images;
+use App\Models\product_attributes;
+use App\Models\Sizes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\App;
@@ -70,6 +73,40 @@ class ProductController extends Controller
     {
         $category = Category::all();
         return view('Layouts.Product.create', compact('category'));
+    }
+
+    public function createProductAttributes()
+    {
+        $colors = Colors::select(['id', 'color'])->get();
+        $sizes = Sizes::select(['id', 'size'])->get();
+        $products = Product::where('active', 1)->select(['id', 'name'])->get();
+        return view('Layouts.Product.createProductAttributes', compact('colors', 'sizes', 'products'));
+    }
+
+    public function storeProductAttributes(Request $request)
+    {
+        $validator = Validator::make($request->all(),
+            [
+                'product_id' => 'required|numeric|exists:products,id',
+                'color_id' => 'required|numeric|exists:colors,id',
+                'size_id' => 'required|numeric|exists:sizes,id',
+                'quantity' => 'required|numeric',
+            ]);
+        if ($validator->fails()) {
+            return back()->withErrors($validator->errors());
+        }
+        $product = Product::find($request->product_id);
+        $productCount = product_attributes::where(['product_id' => $product->id])->sum('quantity');
+        $rest = $product->quantity - $productCount;
+        if ($product) {
+            if ($rest >= $request->quantity) {
+                product_attributes::create($validator->validated());
+                return redirect()->route('products.index');
+            } else {
+                dd('The quantity is not enough');
+            }
+        }
+        return redirect()->back();
     }
 
     public function store(Request $request)

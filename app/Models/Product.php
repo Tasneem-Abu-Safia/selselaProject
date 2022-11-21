@@ -35,5 +35,8 @@ class Product extends Model
         return $this->hasMany(Images::class);
     }
 
-
+    public function product_attributes()
+    {
+        return $this->hasMany(product_attributes::class)->with(['color','size']);
+    }
 }

@@ -16,6 +16,7 @@ class Category extends Model
     protected $table = 'categories';
     protected $fillable = [
         'name',
+        'parent_id',
         'icon',
     ];
 
@@ -23,4 +24,14 @@ class Category extends Model
     {
         return $this->hasMany(Product::class);
     }
+
+    public function children()
+    {
+        return $this->hasMany(Category::class,'parent_id');
+    }
+    public function parent()
+    {
+        return $this->hasOne(Category::class,'id','parent_id');
+    }
+
 }

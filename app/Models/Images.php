@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Images extends Model
 {
     use HasFactory;
+
     protected $table = 'product_images';
     protected $fillable = [
         'url',
@@ -18,4 +19,6 @@ class Images extends Model
     public function product()
     {
         return $this->belongsTo(Product::class);
-    }}
+    }
+
+}

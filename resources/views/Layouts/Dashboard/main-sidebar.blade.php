@@ -86,6 +86,7 @@
 
                     </ul>
                 </li>
+
                 <li class="sidebar-item">
                     <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
                        aria-expanded="false">
@@ -104,6 +105,12 @@
                             <a href="{{route('products.create')}}" class="sidebar-link">
                                 <i class="icon-Record"></i>
                                 <span class="hide-menu"> Add Product </span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="{{route('createProductAttributes')}}" class="sidebar-link">
+                                <i class="icon-Record"></i>
+                                <span class="hide-menu"> Add Product Attributes</span>
                             </a>
                         </li>
 

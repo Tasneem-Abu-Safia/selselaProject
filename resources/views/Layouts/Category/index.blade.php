@@ -26,6 +26,7 @@
                     {data: 'id', name: 'id'},
                     {data: 'name.en', name: 'name'},
                     {data: 'name.ar', name: 'name'},
+                    {data: 'parent_name', name: 'parent_name'},
                     {data: 'icon', name: 'icon'},
                     {
                         data: 'action', name: 'action',
@@ -65,6 +66,7 @@
                                     <th>#</th>
                                     <th>Name_En</th>
                                     <th>Name_Ar</th>
+                                    <th>Parent</th>
                                     <th>Icon</th>
                                     <th>Actions</th>
                                 </tr>

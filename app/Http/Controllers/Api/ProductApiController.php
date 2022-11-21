@@ -15,7 +15,12 @@ class ProductApiController extends Controller
 
     public function index(Request $request)
     {
-        $data = ProductResource::collection(Product::orderBy('created_at')->paginate($request->pagesize));
+
+        $data = ProductResource::collection(Product::with([
+            'images' => function ($q) {
+                $q->where('is_main', 1);
+            },
+            'product_attributes'])->where('active', 1)->orderBy('created_at')->paginate($request->pagesize));
         return $this->apiResponse($data, 'Done', 200);
     }
 
@@ -37,14 +42,14 @@ class ProductApiController extends Controller
          * search by product name
          */
         if ($request->name) {
-            $products_query->where('name->ar','like', $request->name)
-                     ->orWhere('name->en','like',$request->name);
+            $products_query->where('name->ar', 'like', $request->name)
+                ->orWhere('name->en', 'like', $request->name);
         }
         /*
          * search category
          */
-        if($request->category_id){
-            $products_query->where('category_id',$request->category_id);
+        if ($request->category_id) {
+            $products_query->where('category_id', $request->category_id);
         }
         //range
         if ($request->priceMax && $request->priceMin) {

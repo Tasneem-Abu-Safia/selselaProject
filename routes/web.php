@@ -35,6 +35,8 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('orders', OrderProductController::class);
 
     Route::post('product-main-image', [ProductController::class,'mainImage'])->name('productMainImage');
+    Route::get('productAttributes/create', [ProductController::class,'createProductAttributes'])->name('createProductAttributes');
+    Route::post('add-productAttributes', [ProductController::class,'storeProductAttributes'])->name('add-productAttributes');
     Route::get('product-active/{product_id}', [ProductController::class,'deActive'])->name('productDeActive');
     Route::get('product-deActive/{product_id}', [ProductController::class,'active'])->name('productActive');
 

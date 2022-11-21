@@ -23,7 +23,7 @@ return new class extends Migration {
                 ->constrained('categories')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
-            $table->boolean('active');
+            $table->enum('active', [0,1]);
             $table->timestamps();
             $table->softDeletes();
         });

@@ -132,7 +132,7 @@
                         <div class="text-xs-right">
                             <button type="submit" class="btn btn-info">Submit</button>
                             <button type="reset" class="btn btn-inverse">Cancel</button>
-                            <a class="btn btn-primary" href="{{ route('categories.index') }}"> Back</a>
+                            <a class="btn btn-primary" href="{{ route('products.index') }}"> Back</a>
                         </div>
                     </form>
                 </div>

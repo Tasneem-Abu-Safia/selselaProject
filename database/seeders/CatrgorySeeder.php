@@ -22,6 +22,7 @@ class CatrgorySeeder extends Seeder
            Category::create([
             'name' => ['en' => Str::random(5) , 'ar' => Str::random(5) ],
             'icon' => Str::random(5),
+            'parent_id' =>null,
             'created_at' => now(),
             'updated_at' => now(),
         ]);

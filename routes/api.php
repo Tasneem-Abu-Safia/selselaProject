@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('products', [ProductApiController::class, 'index']);
+Route::get('products', [ProductApiController::class, 'index'])->middleware('setLocale');;
 Route::get('products/{product_id}', [ProductApiController::class, 'show']);
 Route::get('filter', [ProductApiController::class, 'filter']);
 
@@ -29,7 +29,7 @@ Route::get('/categories', function () {
     return response()->json([
         'status' => true ,
         'response_message' => 'Done Successfully',
-        'data' => CategoryResource::collection(Category::all()),
+        'data' => CategoryResource::collection(Category::whereNull('parent_id')->get()),
     ]);
 
 });

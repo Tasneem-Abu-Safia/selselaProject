@@ -15,16 +15,19 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            CatrgorySeeder::class,
-            ProductSeeder::class,
-            RolesAndPermissionsSeeder::class,
-            UsersTableSeeder::class,
+//            CatrgorySeeder::class,
+//            ProductSeeder::class,
+//            RolesAndPermissionsSeeder::class,
+//            UsersTableSeeder::class,
         ]);
         // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+//        for ($i = 0; $i < 7; $i++) {
+//            \App\Models\Colors::create([
+//                'color' => 'color' . $i,
+//            ]);
+//            \App\Models\Sizes::create([
+//                'size' => 'size' . $i,
+//            ]);
+//        }
     }
 }
